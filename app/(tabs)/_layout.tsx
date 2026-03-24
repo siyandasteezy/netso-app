@@ -1,7 +1,9 @@
 import { Tabs } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { useCart } from "../../lib/cart-store";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet } from "react-native";
+
+const LOGO = require("../../assets/logo.jpg");
 
 function CartBadge() {
   const count = useCart((s) => s.itemCount());
@@ -10,6 +12,16 @@ function CartBadge() {
     <View style={styles.badge}>
       <Text style={styles.badgeText}>{count > 9 ? "9+" : count}</Text>
     </View>
+  );
+}
+
+function HeaderLogo() {
+  return (
+    <Image
+      source={LOGO}
+      style={styles.headerLogo}
+      resizeMode="contain"
+    />
   );
 }
 
@@ -32,7 +44,9 @@ export default function TabLayout() {
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="home-outline" size={size} color={color} />
           ),
-          headerTitle: "NETSO",
+          // Replace text title with actual logo on the Home tab
+          headerTitle: () => <HeaderLogo />,
+          headerTitleAlign: "center",
         }}
       />
       <Tabs.Screen
@@ -42,6 +56,8 @@ export default function TabLayout() {
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="shirt-outline" size={size} color={color} />
           ),
+          headerTitle: () => <HeaderLogo />,
+          headerTitleAlign: "center",
         }}
       />
       <Tabs.Screen
@@ -51,6 +67,8 @@ export default function TabLayout() {
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="calendar-outline" size={size} color={color} />
           ),
+          headerTitle: () => <HeaderLogo />,
+          headerTitleAlign: "center",
         }}
       />
       <Tabs.Screen
@@ -63,6 +81,8 @@ export default function TabLayout() {
               <CartBadge />
             </View>
           ),
+          headerTitle: () => <HeaderLogo />,
+          headerTitleAlign: "center",
         }}
       />
       <Tabs.Screen
@@ -72,6 +92,8 @@ export default function TabLayout() {
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="receipt-outline" size={size} color={color} />
           ),
+          headerTitle: () => <HeaderLogo />,
+          headerTitleAlign: "center",
         }}
       />
     </Tabs>
@@ -95,5 +117,9 @@ const styles = StyleSheet.create({
     color: "#000",
     fontSize: 9,
     fontWeight: "800",
+  },
+  headerLogo: {
+    width: 100,
+    height: 36,
   },
 });

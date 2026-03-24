@@ -2,7 +2,10 @@ import { useEffect, useState } from "react";
 import {
   ScrollView, View, Text, Image, Pressable,
   StyleSheet, ActivityIndicator, FlatList,
+  ImageBackground,
 } from "react-native";
+
+const LOGO = require("../../assets/logo.jpg");
 import { useRouter } from "expo-router";
 import { api, Product, Event, Category } from "../../lib/api";
 import { formatPrice, formatDate } from "../../lib/utils";
@@ -41,13 +44,15 @@ export default function HomeScreen() {
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       {/* Hero */}
-      <View style={styles.hero}>
+      <ImageBackground source={LOGO} style={styles.hero} resizeMode="cover">
+        <View style={styles.heroOverlay} />
+        <Image source={LOGO} style={styles.heroLogo} resizeMode="contain" />
         <Text style={styles.heroEyebrow}>South African Streetwear</Text>
         <Text style={styles.heroTitle}>THE LATEST{"\n"}DROP</Text>
         <Pressable style={styles.heroBtn} onPress={() => router.push("/(tabs)/shop")}>
           <Text style={styles.heroBtnText}>SHOP NOW</Text>
         </Pressable>
-      </View>
+      </ImageBackground>
 
       {/* Categories grid */}
       {categories.length > 0 && (
@@ -151,8 +156,10 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#000" },
   center: { flex: 1, backgroundColor: "#000", alignItems: "center", justifyContent: "center" },
 
-  hero: { backgroundColor: "#111", padding: 32, paddingTop: 48 },
-  heroEyebrow: { color: "#666", fontSize: 11, letterSpacing: 3, textTransform: "uppercase", marginBottom: 8 },
+  hero: { padding: 32, paddingTop: 48, minHeight: 280, justifyContent: "flex-end", overflow: "hidden" },
+  heroOverlay: { ...StyleSheet.absoluteFillObject, backgroundColor: "rgba(0,0,0,0.65)" },
+  heroLogo: { width: 140, height: 50, marginBottom: 16 },
+  heroEyebrow: { color: "#ccc", fontSize: 11, letterSpacing: 3, textTransform: "uppercase", marginBottom: 8 },
   heroTitle: { color: "#fff", fontSize: 40, fontWeight: "900", letterSpacing: -1, lineHeight: 44, marginBottom: 24 },
   heroBtn: { backgroundColor: "#fff", paddingVertical: 14, paddingHorizontal: 28, alignSelf: "flex-start" },
   heroBtnText: { color: "#000", fontWeight: "800", letterSpacing: 2, fontSize: 13 },
