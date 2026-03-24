@@ -6,6 +6,7 @@ import {
 } from "react-native";
 
 const LOGO = require("../../assets/logo.jpg");
+const HERO_BG = require("../../assets/cool-guy.jpg");
 import { useRouter } from "expo-router";
 import { api, Product, Event, Category } from "../../lib/api";
 import { formatPrice, formatDate } from "../../lib/utils";
@@ -44,7 +45,7 @@ export default function HomeScreen() {
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       {/* Hero */}
-      <ImageBackground source={LOGO} style={styles.hero} resizeMode="cover">
+      <ImageBackground source={HERO_BG} style={styles.hero} resizeMode="cover">
         <View style={styles.heroOverlay} />
         <Image source={LOGO} style={styles.heroLogo} resizeMode="contain" />
         <Text style={styles.heroEyebrow}>South African Streetwear</Text>
