@@ -18,6 +18,14 @@ async function post<T>(path: string, body: unknown): Promise<T> {
 
 // ── Types ──────────────────────────────────────────────────────────────────
 
+export interface Category {
+  id: string;
+  name: string;
+  slug: string;
+  description: string;
+  _count: { products: number };
+}
+
 export interface Product {
   id: string;
   name: string;
@@ -87,6 +95,9 @@ export interface CartItem {
 // ── API calls ──────────────────────────────────────────────────────────────
 
 export const api = {
+  categories: {
+    list: () => get<Category[]>("/categories"),
+  },
   products: {
     list: () => get<Product[]>("/products"),
     get: (id: string) => get<Product>(`/products/${id}`),
